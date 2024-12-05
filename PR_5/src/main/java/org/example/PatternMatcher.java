@@ -11,19 +11,13 @@ public class PatternMatcher {
 
     @Getter
     private int currentState;
-    private boolean matchFound;
 
     public PatternMatcher() {
-        reset();
-    }
-
-    public void reset() {
         currentState = STATE_S;
-        matchFound = false;
     }
 
     public int processSymbol(char inputSymbol) {
-        if (matchFound) {
+        if (currentState == STATE_F) {
             return currentState;
         }
 
@@ -52,7 +46,6 @@ public class PatternMatcher {
             case STATE_3 -> {
                 if (inputSymbol == 'T') {
                     currentState = STATE_F;
-                    matchFound = true;
                 } else {
                     currentState = STATE_S;
                 }
@@ -61,9 +54,5 @@ public class PatternMatcher {
             }
         }
         return currentState;
-    }
-
-    public boolean isMatchDetected() {
-        return matchFound;
     }
 }
